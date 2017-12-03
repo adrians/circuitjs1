@@ -113,7 +113,6 @@ MouseOutHandler, MouseWheelHandler {
     CheckboxMenuItem crossHairCheckItem;
     CheckboxMenuItem showValuesCheckItem;
     CheckboxMenuItem conductanceCheckItem;
-    CheckboxMenuItem euroResistorCheckItem;
     CheckboxMenuItem euroGatesCheckItem;
     CheckboxMenuItem printableCheckItem;
     CheckboxMenuItem alternativeColorCheckItem;
@@ -317,8 +316,6 @@ MouseOutHandler, MouseWheelHandler {
 
 	boolean printable = false;
 	boolean convention = true;
-	boolean euroRes = false;
-	boolean usRes = false;
 	MenuBar m;
 
 	CircuitElm.initClass(this);
@@ -336,22 +333,12 @@ MouseOutHandler, MouseWheelHandler {
 		startCircuit = qp.getValue("startCircuit");
 		startLabel   = qp.getValue("startLabel");
 		startCircuitLink = qp.getValue("startCircuitLink");
-		euroRes = qp.getBooleanValue("euroResistors", false);
-		usRes = qp.getBooleanValue("usResistors",  false);
 		printable = qp.getBooleanValue("whiteBackground", getOptionFromStorage("whiteBackground", false));
 		convention = qp.getBooleanValue("conventionalCurrent",
 			getOptionFromStorage("conventionalCurrent", true));
 	} catch (Exception e) { }
 	
-	boolean euroSetting = false;
-	if (euroRes)
-	    euroSetting = true;
-	else if (usRes)
-	    euroSetting = false;
-	else
-	    euroSetting = getOptionFromStorage("euroResistors", !weAreInUS());
 	boolean euroGates = getOptionFromStorage("euroGates", weAreInGermany());
-	
 	transform = new double[6];
 	String os = Navigator.getPlatform();
 	isMac = (os.toLowerCase().contains("mac"));
@@ -467,12 +454,6 @@ MouseOutHandler, MouseWheelHandler {
 		}
 	}));
 	crossHairCheckItem.setState(getOptionFromStorage("crossHair", false));
-	m.addItem(euroResistorCheckItem = new CheckboxMenuItem(LS("European Resistors"),
-		new Command() { public void execute(){
-		    setOptionInStorage("euroResistors", euroResistorCheckItem.getState());
-		}
-	}));
-	euroResistorCheckItem.setState(euroSetting);
 	m.addItem(euroGatesCheckItem = new CheckboxMenuItem(LS("IEC Gates"),
 		new Command() { public void execute(){
 		    setOptionInStorage("euroGates", euroGatesCheckItem.getState());

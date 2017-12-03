@@ -65,19 +65,7 @@ import com.google.gwt.canvas.dom.client.CanvasGradient;
 		g.context.setStrokeStyle(grad);
 	    } else
 		setPowerColor(g, true);
-	    if (!sim.euroResistorCheckItem.getState()) {
-		g.context.beginPath();
-		g.context.moveTo(0,0);
-		for (i=0;i<4;i++){
-		    g.context.lineTo((1+4*i)*len/16, hs);
-		    g.context.lineTo((3+4*i)*len/16, -hs);
-		}
-		g.context.lineTo(len, 0);
-		g.context.stroke();
-
-	    } else {
-		g.context.strokeRect(0, -hs, len, 2.0*hs);
-	    }
+	    g.context.strokeRect(0, -hs, len, 2.0*hs);
 	    g.context.restore();
 	    if (sim.showValuesCheckItem.getState()) {
 		String s = getShortUnitText(resistance, "");

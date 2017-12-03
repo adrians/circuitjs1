@@ -145,7 +145,7 @@ class PotElm extends CircuitElm implements Command, MouseWheelHandler {
 	int segments = 16;
 	int i;
 	int ox = 0;
-	int hs = sim.euroResistorCheckItem.getState() ? 6 : 8;
+	int hs = 6;
 	double v1 = volts[0];
 	double v2 = volts[1];
 	double v3 = volts[2];
@@ -154,42 +154,24 @@ class PotElm extends CircuitElm implements Command, MouseWheelHandler {
 	setPowerColor(g, true);
 	double segf = 1./segments;
 	int divide = (int) (segments*position);
-	if (!sim.euroResistorCheckItem.getState()) {
-	    // draw zigzag
-	    for (i = 0; i != segments; i++) {
-		int nx = 0;
-		switch (i & 3) {
-		case 0: nx = 1; break;
-		case 2: nx = -1; break;
-		default: nx = 0; break;
-		}
-		double v = v1+(v3-v1)*i/divide;
-		if (i >= divide)
-		    v = v3+(v2-v3)*(i-divide)/(segments-divide);
-		setVoltageColor(g, v);
-		interpPoint(lead1, lead2, ps1, i*segf, hs*ox);
-		interpPoint(lead1, lead2, ps2, (i+1)*segf, hs*nx);
-		drawThickLine(g, ps1, ps2);
-		ox = nx;
-	    }
-	} else {
-	    // draw rectangle
-	    setVoltageColor(g, v1);
-	    interpPoint2(lead1, lead2, ps1, ps2, 0, hs);
-	    drawThickLine(g, ps1, ps2);
-	    for (i = 0; i != segments; i++) {
-		double v = v1+(v3-v1)*i/divide;
-		if (i >= divide)
-		    v = v3+(v2-v3)*(i-divide)/(segments-divide);
-		setVoltageColor(g, v);
-		interpPoint2(lead1, lead2, ps1, ps2, i*segf, hs);
-		interpPoint2(lead1, lead2, ps3, ps4, (i+1)*segf, hs);
-		drawThickLine(g, ps1, ps3);
-		drawThickLine(g, ps2, ps4);
-	    }
-	    interpPoint2(lead1, lead2, ps1, ps2, 1, hs);
-	    drawThickLine(g, ps1, ps2);
+
+	// draw rectangle
+	setVoltageColor(g, v1);
+	interpPoint2(lead1, lead2, ps1, ps2, 0, hs);
+	drawThickLine(g, ps1, ps2);
+	for (i = 0; i != segments; i++) {
+	    double v = v1+(v3-v1)*i/divide;
+	    if (i >= divide)
+		v = v3+(v2-v3)*(i-divide)/(segments-divide);
+	    setVoltageColor(g, v);
+	    interpPoint2(lead1, lead2, ps1, ps2, i*segf, hs);
+	    interpPoint2(lead1, lead2, ps3, ps4, (i+1)*segf, hs);
+	    drawThickLine(g, ps1, ps3);
+	    drawThickLine(g, ps2, ps4);
 	}
+	interpPoint2(lead1, lead2, ps1, ps2, 1, hs);
+	drawThickLine(g, ps1, ps2);
+
 	setVoltageColor(g, v3);
 	drawThickLine(g, post3, corner2);
 	drawThickLine(g, corner2, arrowPoint);
