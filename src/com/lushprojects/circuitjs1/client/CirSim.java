@@ -102,7 +102,6 @@ MouseOutHandler, MouseWheelHandler {
     MenuItem aboutItem;
     MenuItem importFromLocalFileItem, importFromTextItem,
     	exportAsUrlItem, exportAsLocalFileItem, exportAsTextItem, printItem, recoverItem;
-    MenuItem importFromDropboxItem;
     MenuItem undoItem, redoItem,
 	cutItem, copyItem, pasteItem, selectAllItem, optionsItem;
     MenuBar optionsMenuBar;
@@ -213,11 +212,9 @@ MouseOutHandler, MouseWheelHandler {
    int scopeColCount[];
     static EditDialog editDialog, customLogicEditDialog, diodeModelEditDialog;
     static SliderDialog sliderDialog;
-    static ImportFromDropbox importFromDropbox;
     static ScrollValuePopup scrollValuePopup;
     static DialogBox dialogShowing;
     static AboutBox aboutBox;
-    static ImportFromDropboxDialog importFromDropboxDialog;
 //    Class dumpTypes[], shortcuts[];
     String shortcuts[];
     static String muString = "\u03bc";
@@ -354,8 +351,6 @@ MouseOutHandler, MouseWheelHandler {
 	  fileMenuBar.addItem(importFromLocalFileItem);
 	  importFromTextItem = new MenuItem(LS("Import From Text..."), new MyCommand("file","importfromtext"));
 	  fileMenuBar.addItem(importFromTextItem);
-	  importFromDropboxItem = new MenuItem(LS("Import From Dropbox..."), new MyCommand("file", "importfromdropbox"));
-	  fileMenuBar.addItem(importFromDropboxItem); 
 	  exportAsLocalFileItem = new MenuItem(LS("Save As..."), new MyCommand("file","exportaslocalfile"));
 	  exportAsLocalFileItem.setEnabled(ExportAsLocalFileDialog.downloadIsSupported());
 	  fileMenuBar.addItem(exportAsLocalFileItem);
@@ -595,8 +590,6 @@ MouseOutHandler, MouseWheelHandler {
 		if (stopMessage == null && startCircuitLink!=null) {
 			readSetup(new byte[] {}, false, true);
 			getSetupList(false);
-			ImportFromDropboxDialog.setSim(this);
-			ImportFromDropboxDialog.doImportDropboxLink(startCircuitLink, false);
 		} else {
 			readSetup(new byte[] {}, false, true);
 			if (stopMessage == null && startCircuit != null) {
@@ -2555,9 +2548,6 @@ MouseOutHandler, MouseWheelHandler {
     	if (item=="importfromtext") {
     		dialogShowing = new ImportFromTextDialog(this);
     	}
-    	if (item=="importfromdropbox") {
-    		importFromDropboxDialog = new ImportFromDropboxDialog(this);
-    	}
     	if (item=="exportasurl") {
     		doExportAsUrl();
     	}
@@ -4362,8 +4352,6 @@ MouseOutHandler, MouseWheelHandler {
     	if (scrollValuePopup != null && scrollValuePopup.isShowing())
     		return true;
     	if (aboutBox !=null && aboutBox.isShowing())
-    		return true;
-    	if (importFromDropboxDialog != null && importFromDropboxDialog.isShowing())
     		return true;
     	return false;
     }

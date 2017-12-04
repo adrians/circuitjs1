@@ -30,7 +30,6 @@ GWT will build it's output in to the "war" directory. In the "war" directory the
 * Customize the header of the file "circuitjs1.html" to include your tracking, favicon etc.
 * Customize the "iframe.html" file to include any branding you want in the right hand panel of the application
 * The optional file "shortrelay.php" is a server-side script to act as a relay to a URL shortening service to avoid cross-origin problems with a purely client solution. You may want to customize this for your site. If you don't want to use this feature edit the circuitjs1.java file before compiling.
-* If you wish to enable dropbox loading and saving a dropbox API app-key is needed. This should be edited in to the circuitjs.html file where needed. If this is not included the relevant features will be disabled.
 
 
 The link for the full-page version of the application is now:
