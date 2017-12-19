@@ -31,14 +31,11 @@ package com.lushprojects.circuitjs1.client;
 	    setVoltageColor(g, 0);
 	    drawThickLine(g, point1, point2);
 	    int i;
-	    for (i = 0; i != 3; i++) {
-		int a = 10-i*4;
-		int b = i*5; // -10;
-		interpPoint2(point1, point2, ps1, ps2, 1+b/dn, a);
-		drawThickLine(g, ps1, ps2);
-	    }
+
+	    interpPoint2(point1, point2, ps1, ps2, 1, 10);
+	    drawThickLine(g, ps1, ps2);
 	    doDots(g);
-	    interpPoint(point1, point2, ps2, 1+11./dn);
+	    interpPoint(point1, point2, ps2, 1);
 	    setBbox(point1, ps2, 11);
 	    drawPosts(g);
 	}
