@@ -540,32 +540,16 @@ MouseOutHandler, MouseWheelHandler {
 	if (LoadFile.isSupported())
 		verticalPanel.add(loadFileInput = new LoadFile(this));
 	
-	Label l;
-	verticalPanel.add(l = new Label(LS("Simulation Speed")));
-	l.addStyleName("topSpace");
-
-	// was max of 140
-	verticalPanel.add( speedBar = new Scrollbar(Scrollbar.HORIZONTAL, 3, 1, 0, 260));
-
-	verticalPanel.add( l = new Label(LS("Current Speed")));
-	l.addStyleName("topSpace");
+	// Simplified the GUI
+	speedBar = new Scrollbar(Scrollbar.HORIZONTAL, 3, 1, 0, 260);
 	currentBar = new Scrollbar(Scrollbar.HORIZONTAL, 50, 1, 1, 100);
-	verticalPanel.add(currentBar);
-	verticalPanel.add(powerLabel = new Label (LS("Power Brightness")));
+
+	powerLabel = new Label (LS("Power Brightness"));
 	powerLabel.addStyleName("topSpace");
-	verticalPanel.add(powerBar = new Scrollbar(Scrollbar.HORIZONTAL,
-		    50, 1, 1, 100));
+	powerBar = new Scrollbar(Scrollbar.HORIZONTAL, 50, 1, 1, 100);
 	setPowerBarEnable();
 	
-//	verticalPanel.add(new Label(""));
-//        Font f = new Font("SansSerif", 0, 10);
-        l = new Label(LS("Current Circuit:"));
-	l.addStyleName("topSpace");
-//        l.setFont(f);
         titleLabel = new Label("Label");
-//        titleLabel.setFont(f);
-        verticalPanel.add(l);
-        verticalPanel.add(titleLabel);
 
 	verticalPanel.add(iFrame = new Frame("iframe.html"));
 	iFrame.setWidth(VERTICALPANELWIDTH+"px");
